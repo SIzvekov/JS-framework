@@ -1,0 +1,4 @@
+{
+	"cssFiles": ["bootstrap.min", "css", "resolutions/Large", "resolutions/Medium", "resolutions/Small", "resolutions/xLarge", "resolutions/xSmall"],
+	"jsFiles": ["bootstrap.min"]
+}

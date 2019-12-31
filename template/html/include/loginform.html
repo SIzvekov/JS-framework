@@ -1,0 +1,97 @@
+<div class="vertical-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+            <div class="alert alert-danger hidden" role="alert" id="authErrorBlock">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span id="authErrorMessage"></span>
+            </div>
+            
+            <div class="loginwrapper login-panel">
+                  <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Please login <span id="login-as-lable"></span></h3>
+                  </div>
+                    <div class="panel-body">
+                        <form id="form-loginform" method="post">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input type="text" name="login" id="loginform-login" value="" placeholder="Email Address" required="required" autofocus="autofocus" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="pas" id="loginform-pas" value="" placeholder="Passwrod" required="required" autofocus="autofocus" class="form-control">
+                                </div>
+                                <div class="form-group" id="loginTypeBlock"></div>
+                                <div class="form-group">
+                                    <input type="submit" id="loginButton" value="login" class="btn btn-primary btn-lg btn-block" />
+                                </div>
+                            </fieldset>
+                        </form>
+
+                    </div>
+              </div>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+        if(typeof defaultAuthErrorMessage != 'undefined' && defaultAuthErrorMessage){
+            $("#authErrorMessage").html(defaultAuthErrorMessage);
+            $("#authErrorBlock").removeClass("hidden").show();
+        }
+
+        var appendLoginTypeBlock = '';
+        loginUserTypeRequired = $.cookie('loginUserTypeRequired');
+        $.cookie('loginUserTypeRequired','');
+        if(!loginUserTypeRequired || appConfig.defaultLoginGroup.length < 1) {loginGroup = appConfig.defaultLoginGroup;}
+        else {loginGroup = loginUserTypeRequired.split(',');}
+        if(typeof loginGroup != 'object' || loginGroup.length < 1) loginGroup = [];
+        
+        if(loginGroup.length > 1){
+            $("#login-as-lable").text('');
+            appendLoginTypeBlock = '<select name="type" id="loginform-type" class="form-control">';
+            for(i = 0; i < loginGroup.length; i++){
+                val = loginGroup[i];
+                label = appConfig.defaultLoginGroupLabels[val] ? appConfig.defaultLoginGroupLabels[val] : val;
+                appendLoginTypeBlock += '<option value="'+val+'">'+label+'</option>';
+            }
+            appendLoginTypeBlock += '</select>';
+        }else if(loginGroup.length == 1){
+            $("#login-as-lable").text('as '+appConfig.defaultLoginGroupLabels[loginGroup[0]]);
+            appendLoginTypeBlock = '<input type="hidden" name="type" value="'+loginGroup[0]+'" id="loginform-type" />';
+        }
+        $("#loginTypeBlock").append(appendLoginTypeBlock);
+    });
+    $("#form-loginform").on('submit', function (event) {
+        event.preventDefault();
+        $("#authErrorBlock").addClass("hidden");
+        var loginbtnDefaultValue = $("#loginButton").val();
+        var userType = $("#loginform-type").val();
+        
+        var data = {
+            login: $("#loginform-login").val(),
+            pas: $("#loginform-pas").val(),
+            type: userType
+        };
+        
+        $("#loginButton").val('wait...').removeClass('btn-primary').attr('disabled', 'disabled');
+
+        API_query('auth', data, 'POST', function(res){
+            if(res.code==200){
+                saveUserToken(res.response.token);
+                saveUserType(res.response.user_type);
+                // location.reload();
+                if(typeof checkUnAuthStatTimer != 'undefined' && checkUnAuthStatTimer) clearInterval(checkUnAuthStatTimer);
+                $("#loginForm").remove();
+                setCheckAuthTimeout(res.response.seconds)
+            }else{
+                $("#authErrorMessage").html(res.response.message+' '+res.response.fail_reason);
+                $("#authErrorBlock").removeClass("hidden").hide();
+                $("#authErrorBlock").fadeIn();
+                 $("#loginButton").val(loginbtnDefaultValue).addClass('btn-primary').removeAttr('disabled');
+            }
+        });
+    });
+</script>

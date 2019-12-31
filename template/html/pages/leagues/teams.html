@@ -1,0 +1,13 @@
+<h1>{{config.mui.navigation.teams}}</h1>
+{{#teamInfo}}
+<div class="row"><a href="/{{config.sectionType}}/{{config.sectionCode}}/teams/-{{team_id}}" class="ajax-link text-muted">
+	<div class="col-sm-1 col-xs-12">
+		<div class="teamLogo">
+			<img src="{{config.staticContentHost}}/teams/images/logo/{{team_id}}.png" class="ico-default48" />	
+		</div>	
+	</div>
+	<div class="col-sm-11 col-xs-12 teamTitle">
+		{{team_name}}
+	</div></a>
+</div>
+{{/teamInfo}}

@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	body{
+		background-image: none;
+	}
+	header {
+		margin-top: 15px;
+	}
+	header div.logo img{
+	}
+	header div.logo span {
+		padding-left: 10px;
+		padding-top: 10px;
+		width:auto;
+	}
+	img.teamico64{
+		width: 100%;
+	}
+	.my-h1{
+		text-align: center;
+	}
+	div.players-list div.player-picture img{width:100%;}
+	div.players-list div.player-info{text-align: center;font-size: 22px;line-height: 30px;}
+	div.all-teams-block{height: auto;}
+	div.game-team1-ico{display: block;}
+	div.game-team2-ico{display: block;}
+	div.game-team1-ico img, div.game-team2-ico img{width: 100%;max-width: 72px;}
+	div.error400message .image img{width: 100%;}
+	div.error400message .message{
+		margin-top: 15px;
+		font-size: 25px;
+		line-height: 30px;
+	}
+	div.teamLogo{
+		text-align: center;
+	}
+	div.teamTitle{
+		text-align: center;
+		line-height: 22px;
+		margin-bottom: 20px;
+		margin-top: -15px;
+	}
+	div.playerCard div.avatar{
+		float: none;
+		text-align: center;
+	}
+	div.playerCard div.info{
+		float: none;
+		text-align: center;
+		margin: 0px;
+	}
+}

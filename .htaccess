@@ -1,0 +1,23 @@
+DirectoryIndex index.html
+Options -Indexes
+
+RewriteEngine on
+RewriteBase /
+
+## handle versioning using '+_rvt_+' "rivet" approach (release version tag)##
+# strip rvt from filename
+RewriteRule ^(.*)--v[0-9]+\.[0-9]+\.(js|css|json|txt|xml|jpg|png|html)$ $1.$2 [NC,L]
+
+RewriteCond %{QUERY_STRING} ^_escaped_fragment_=(.*)
+RewriteRule ^(.*) /app/4crawler/index.php?url=%1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/api/.*
+RewriteRule ^.*$ /api/index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !.*\.cur
+RewriteCond %{REQUEST_FILENAME} !.*\.ico
+RewriteRule ^.*$ /index.html [L]

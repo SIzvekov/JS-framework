@@ -1,0 +1,73 @@
+{{#sportsdays}}
+
+{{#games}}
+<div class="row">
+	<div class="col-md-4 col-sm-4 col-xs-3 text-right game-team-name">
+		<div class="game-team-name-line"><h4><a href="/{{config.sectionType}}/{{config.sectionCode}}/teams/-{{team1_id}}" class="ajax-link"><div class="game-team1-ico"><img src="{{config.staticContentHost}}/teams/images/logo/{{team1_id}}.png" class="ico-default" /></div><span class="hidden-sm hidden-xs">&nbsp;{{team1_name}}</span></a></h4></div>
+		
+		{{#status_mst.completed}}
+		<div class="game-team-whoscored hidden-sm hidden-xs">
+			{{#team1_details}}
+			<div class="scorer-item" title="{{toolTip}}">
+				{{#type_mst.change}}
+				<span class="name">{{player_name}}</span>
+				<span class="ico"><img src="{{config.staticContentHost}}/match/icons/{{type}}/out.png" class="ico-default12" /></span>&nbsp;
+				<span class="name">{{player2_name}}</span>
+				<span class="ico"><img src="{{config.staticContentHost}}/match/icons/{{type}}/in.png" class="ico-default12" /></span>,&nbsp;
+				<span class="time">{{time}}</span>
+				{{/type_mst.change}}
+				{{^type_mst.change}}
+				<span class="name">{{player_name}}</span>,&nbsp;
+				<span class="time">{{time}}</span>
+				{{#type_mst.score}}
+				{{#subtype_mst.penalty}}&nbsp;<span class="extra">(P)</span>{{/subtype_mst.penalty}}
+				{{#subtype_mst.autogoal}}&nbsp;<span class="extra">(A)</span>{{/subtype_mst.autogoal}}
+				{{/type_mst.score}}&nbsp;
+				<span class="ico"><img src="{{config.staticContentHost}}/match/icons/{{type}}/{{subtype}}.png" class="ico-default12" /></span>
+				{{/type_mst.change}}
+			</div>
+			{{/team1_details}}
+		</div>
+		{{/status_mst.completed}}
+	</div>
+	<div class="col-md-4 col-sm-4 col-xs-6 text-center">
+		{{#status_mst.completed}}<div class="pull-left game-score">{{team1_score}}</div>{{/status_mst.completed}}
+		{{#status_mst.completed}}<div class="pull-right game-score">{{team2_score}}</div>{{/status_mst.completed}}
+		<div class="game-score-clr"></div>
+		<nobr>{{title}}</nobr><br/>
+		{{datetime}}
+	</div>
+	<div class="col-md-4 col-sm-4 col-xs-3 text-left game-team-name">
+		
+		<div class="game-team-name-line"><h4><a href="/{{config.sectionType}}/{{config.sectionCode}}/teams/-{{team2_id}}" class="ajax-link"><span class="hidden-sm hidden-xs">{{team2_name}}&nbsp;</span><div class="game-team2-ico"><img src="{{config.staticContentHost}}/teams/images/logo/{{team2_id}}.png" class="ico-default" /></div></a></h4></div>
+		
+		{{#status_mst.completed}}
+		<div class="game-team-whoscored hidden-sm hidden-xs">
+			{{#team2_details}}
+			<div class="scorer-item" title="{{toolTip}}">
+				{{#type_mst.change}}
+				<span class="name">{{player_name}}</span>
+				<span class="ico"><img src="{{config.staticContentHost}}/match/icons/{{type}}/out.png" class="ico-default12" /></span>&nbsp;
+				<span class="name">{{player2_name}}</span>
+				<span class="ico"><img src="{{config.staticContentHost}}/match/icons/{{type}}/in.png" class="ico-default12" /></span>,&nbsp;
+				<span class="time">{{time}}</span>&nbsp;
+				{{/type_mst.change}}
+				{{^type_mst.change}}
+				<span class="ico"><img src="{{config.staticContentHost}}/match/icons/{{type}}/{{subtype}}.png" class="ico-default12" /></span>&nbsp;
+				{{#type_mst.score}}
+				{{#subtype_mst.penalty}}<span class="extra">(P)</span>&nbsp;{{/subtype_mst.penalty}}
+				{{#subtype_mst.autogoal}}<span class="extra">(A)</span>&nbsp;{{/subtype_mst.autogoal}}
+				{{/type_mst.score}}
+				<span class="time">{{time}}</span>,&nbsp;
+				<span class="name">{{player_name}}</span>&nbsp;
+				
+				{{/type_mst.change}}
+			</div>
+			{{/team2_details}}
+		</div>
+		{{/status_mst.completed}}
+	</div>
+</div><br/><br/>
+{{/games}}
+
+{{/sportsdays}}

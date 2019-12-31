@@ -1,0 +1,11 @@
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_URI} /staticcontent/teams/images/logo/.*\.(gif|jpg|jpeg|png)$ 
+RewriteRule (.*) /staticcontent/teams/images/logo/default.png [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_URI} /staticcontent/players/pictures/avatar/.*\.(gif|jpg|jpeg|png)$ 
+RewriteRule (.*) /staticcontent/players/pictures/avatar/default.png [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_URI} /staticcontent/leagues/images/logo/.*\.(gif|jpg|jpeg|png)$ 
+RewriteRule (.*) /staticcontent/leagues/images/logo/default.png [L]

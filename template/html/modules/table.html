@@ -1,0 +1,44 @@
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-condensed tableOfResults">
+			<thead>
+				<th class="text-center">#</th>
+				<th>
+					{{config.mui.table_of_results_labels.team}}
+					<div class="tableOfResults-small-results hidden-md hidden-lg hidden-xl">
+						{{config.mui.table_of_results_labels.gp}} | {{config.mui.table_of_results_labels.gw}} | {{config.mui.table_of_results_labels.gt}} | {{config.mui.table_of_results_labels.gl}} | {{config.mui.table_of_results_labels.pa}} | {{config.mui.table_of_results_labels.gs}} | {{config.mui.table_of_results_labels.gr}} | {{config.mui.table_of_results_labels.dif}} | {{config.mui.table_of_results_labels.score}}
+					</div>
+				</th>
+				<th class="hidden-sm hidden-xs text-center">{{config.mui.table_of_results_labels.gp}}</th>
+				<th class="hidden-sm hidden-xs text-center">{{config.mui.table_of_results_labels.gw}}</th>
+				<th class="hidden-sm hidden-xs text-center">{{config.mui.table_of_results_labels.gt}}</th>
+				<th class="hidden-sm hidden-xs text-center">{{config.mui.table_of_results_labels.gl}}</th>
+				<th class="hidden-sm hidden-xs text-center">{{config.mui.table_of_results_labels.pa}}</th>
+				<th class="hidden-sm hidden-xs text-center">{{config.mui.table_of_results_labels.gs}}</th>
+				<th class="hidden-sm hidden-xs text-center">{{config.mui.table_of_results_labels.gr}}</th>
+				<th class="hidden-sm hidden-xs text-center">{{config.mui.table_of_results_labels.dif}}</th>
+				<th class="hidden-sm hidden-xs text-center">{{config.mui.table_of_results_labels.score}}</th>
+			</thead>
+			<tbody>{{#tableInfo}}
+				<tr class="text-muted">
+					<td class="text-center vcenter">{{position}}</td>
+					<td class="vcenter">
+						<a href="/teams/-{{team_id}}" class="ajax-link text-muted"><img src="{{config.staticContentHost}}/teams/images/logo/{{team_id}}.png" class="ico-default24" /> {{team_name}}</a>
+						<div class="tableOfResults-small-results hidden-md hidden-lg hidden-xl">
+							{{gp}} | {{gw}} | {{gt}} | {{gl}} | {{pa}} | {{gs}} | {{gr}} | {{dif}} | {{score}}
+						</div>
+					</td>
+					<td class="vcenter hidden-sm hidden-xs text-center">{{gp}}</td>
+					<td class="vcenter hidden-sm hidden-xs text-center">{{gw}}</td>
+					<td class="vcenter hidden-sm hidden-xs text-center">{{gt}}</td>
+					<td class="vcenter hidden-sm hidden-xs text-center">{{gl}}</td>
+					<td class="vcenter hidden-sm hidden-xs text-center">{{pa}}</td>
+					<td class="vcenter hidden-sm hidden-xs text-center">{{gs}}</td>
+					<td class="vcenter hidden-sm hidden-xs text-center">{{gr}}</td>
+					<td class="vcenter hidden-sm hidden-xs text-center">{{dif}}</td>
+					<td class="vcenter hidden-sm hidden-xs text-center">{{score}}</td>
+				</tr>
+			{{/tableInfo}}</tbody>
+		</table>
+	</div>
+</div>
