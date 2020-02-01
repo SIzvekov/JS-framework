@@ -445,8 +445,11 @@ function setPageAccessLevel(params){
 	}
 	*/
 
+	var promise = $.Deferred();
+
 	if(typeof params != 'object'){
-		return true;
+		promise.resolve( true );
+		// return true;
 	}
 
 	if(typeof params.level == 'undefined') level = null;
@@ -459,7 +462,10 @@ function setPageAccessLevel(params){
 	else forceToLogOut = params.forceToLogOut;
 
 	if(forceToLogOut) level = '-';
-	if(!level) return true;
+	if(!level) {
+		promise.resolve( true );
+		// return true;
+	}
 	currentUserType = userType();
 	level = level.split(',');
 	var userDontHasAccess = (currentUserType != 'root' && $.inArray( currentUserType, level ) == -1);
@@ -478,7 +484,9 @@ function setPageAccessLevel(params){
 		if(typeof window['authNoAccessAction'] == "function"){
 			window['authNoAccessAction'](params);
 		}
-		return false;
+		promise.resolve( false );
+		// promise.reject(false);
+		// return false;
 	}else{
 		checkAuth();
 		// if(auth_check_timer) clearInterval(auth_check_timer);
@@ -486,6 +494,8 @@ function setPageAccessLevel(params){
 
 		// requestSessionExtension();
 	}
+
+	return promise.promise();
 }
 
 /*
