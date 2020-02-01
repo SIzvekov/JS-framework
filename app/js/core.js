@@ -690,39 +690,67 @@ function trimChar(string, charToRemove) {
     return string;
 }
 
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = decodeURI(value);
+    });
+    return vars;
+}
+
+function getUrlParam(parameter, defaultvalue){
+    var urlparameter = defaultvalue;
+    if(window.location.href.indexOf(parameter) > -1){
+        urlparameter = getUrlVars()[parameter];
+        }
+    return urlparameter;
+}
+
 function getUrlParameterString(){
-	var sPageURL = '';
-	isHashUrlMarker = window.location.hash.substr(1,1);
-	if(isHashUrlMarker == '!'){
-		url = window.location.hash.substr(2);
-		if(url){
-			url = url.split('?');
-			if(url[1]){
-				sPageURL = url[1] += '&';
-			}
-		}
-	}
-	sPageURL += window.location.search.substring(1);
-	return sPageURL;
+    var sPageURL = '';
+    isHashUrlMarker = window.location.hash.substr(1,1);
+    if(isHashUrlMarker == '!'){
+        url = window.location.hash.substr(2);
+        if(url){
+            url = url.split('?');
+            if(url[1]){
+                sPageURL = url[1] += '&';
+            }
+        }
+    }
+    sPageURL += window.location.search.substring(1);
+    return sPageURL;
 }
 
 function getUrlParameter(sParam)
 {
-	var url = '';
+    var urlParametersArray = getUrlParametersArray()
+    if(typeof urlParametersArray[sParam] !== 'undefined')
+        return urlParametersArray[sParam]
+    else
+        return null
+}
 
-	sPageURL = getUrlParameterString();
-	if(!sPageURL) return;
-
+function getUrlParametersArray(){
+    var urlParametersArray = {}
+    sPageURL = getUrlParameterString();
     var sURLVariables = sPageURL.split('&');
+
     for (var i = 0; i < sURLVariables.length; i++)
     {
         var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam)
-        {
-            return sParameterName[1];
-        }
+        urlParametersArray[decodeURI(sParameterName[0])] = decodeURI(sParameterName[1]);
     }
-    return null;
+    return urlParametersArray;
+}
+
+function buildUrlParameterString(urlParametersArray){
+    var buildUrlParametersArray = []
+    $.each(urlParametersArray, function(k, v){
+        if(k)
+            buildUrlParametersArray[buildUrlParametersArray.length] = encodeURI(k)+'='+encodeURI(v)
+    })
+    return buildUrlParametersArray.join('&')
 }
 
 function mustacheRender(view, blockId){
