@@ -11,7 +11,7 @@ $.when(setPageAccessLevel({
 }else{
 
 	// actions when no access to the page
-	locationHref('login?return=index')
+	locationHref('login', {'return': appConfig.currentUrl})
 }
 $(".bodyLoadSpinner").remove();
 })}

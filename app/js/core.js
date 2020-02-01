@@ -746,6 +746,7 @@ function getUrlParametersArray(){
 
 function buildUrlParameterString(urlParametersArray){
     var buildUrlParametersArray = []
+    if(typeof urlParametersArray !== 'object') return '';
     $.each(urlParametersArray, function(k, v){
         if(k)
             buildUrlParametersArray[buildUrlParametersArray.length] = encodeURI(k)+'='+encodeURI(v)
@@ -776,16 +777,18 @@ function renderContentIntoBlock(template, data, blockSelector){
 	return $(blockSelector);
 }
 
-function locationHref(url){
+function locationHref(url, params){
 	if(typeof url == 'undefined') return false;
 
 	url = url.replace('.html', '');
 	url = trimChar(url, '/');
+
+	paramsString = buildUrlParameterString(params)
 	if (history.pushState) {
-		url = url + '.html';
+		url = url + '.html' + (paramsString ? '?' + paramsString : '');
 		history.pushState(null, null, url);
 	}else{
-		location.href = '#!'+url;
+		location.href = '#!'+url + (paramsString ? '?' + paramsString : '');
 	}
 	 
 	
