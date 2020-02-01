@@ -30,25 +30,12 @@ $(function() {
 	It is done thru requestiong HTML rather than JSON to protect the code from invalid JSON object in the app/overrideConfig.json.
 	In case of invalid JSON (or if this file does not exist at all) the script inside of "success" does not evaluate at all (neither it does in .done)
 	*/
-	var pathNameArray = location.pathname.split('/')
-	var sectionType = (pathNameArray[1] ? pathNameArray[1] : 'portal').replace('\.html','');
-	if(sectionType != 'portal'){
-		var sectionCode = pathNameArray[2].replace('\.html','');
-		var sectionConfigAPIurl = '/'+sectionType+'/0'+sectionCode+'/config';
-	}else{
-		var sectionCode = null;
-		var sectionConfigAPIurl = '/'+sectionType+'/config';
-	}
-	var sectionConfigData = API_query(sectionConfigAPIurl);
 	var overrideAppConfigData = loadFile({filePath: "app/overrideConfig--v"+overrideConfigVersion+".json"});
-	var muiData = API_query('/mui/0'+sectionType+'/0en');
 	
-	$.when(sectionConfigData, overrideAppConfigData, muiData).then(function(sectionConfig, overrideAppConfig, mui){
+	$.when(overrideAppConfigData).then(function(overrideAppConfig){
 		overrideAppConfig = overrideAppConfig[0]
 		
 		// override config
-		appConfig = $.extend(appConfig, overrideAppConfig, {'sectionConfig': sectionConfig.response}, {'mui': mui.response}, {'sectionType': sectionType, 'sectionCode': sectionCode});
-
 		$.ajaxSetup({
 			cache: appConfig.ajaxCache
 		}); 
@@ -313,7 +300,6 @@ function getHashUrl() {
 var lastUrl = '';
 var lastParams = '';
 function loadpage(url, params, queryMethod){
-	
 	// if URL was not passed to the function, define URL from path string
 	if(!url)
 		var url = window.location.pathname; // Returns path only
@@ -337,8 +323,8 @@ function loadpage(url, params, queryMethod){
 
 	// if URL is still empty, define it as index
 	// console.log(url);
-	if(!url || url == appConfig.sectionType)
-		var url = appConfig.sectionType+'/index';
+	if(!url)
+		var url = 'index';
 	
 	// if last loaded url is equal to the one which we're trying to load now and the set of parameters is the same then stop it
 	if(lastUrl == url && lastParams == params){
@@ -395,6 +381,7 @@ function loadpage(url, params, queryMethod){
 						if(textStatus=='success' && typeof initPage == 'function'){
 							initPage(res);
 						}else{
+							console.log(appConfig.bodyContentIdentifyer)
 							$(appConfig.bodyContentIdentifyer).html(mustache(res));
 							$(".bodyLoadSpinner").remove();
 						}

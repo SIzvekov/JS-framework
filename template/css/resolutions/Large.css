@@ -2,21 +2,4 @@
 @media (min-width: 992px) and (max-width: 1199px) {
 	body{
 	}	
-	header div.logo img{
-	}
-	header div.logo span{
-		padding-top: 10px;
-		font: bold italic 15px/21px 'Open Sans', sans-serif;
-	}
-	header div.social a{
-		padding-top: 0px;
-	}
-	img.teamico64{
-		width: 64px;
-	}
-	.my-h1{
-		text-align: left;
-	}
-	div.players-list div.player-picture img{width:130px;}
-	div.players-list div.player-info{}
 }

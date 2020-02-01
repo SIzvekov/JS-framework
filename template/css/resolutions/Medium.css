@@ -2,28 +2,5 @@
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 991px) {
 	body{
-		background-image:url(../../images/body-bg-ml.jpg);
 	}
-	header {
-		margin-top: 35px;
-	}
-	header div.logo img{
-	}
-	header div.logo span {
-		font: bold italic 14px/21px 'Open Sans', sans-serif;
-		padding-top: 8px;
-		width: 275px;
-	}
-	header div.social a{
-		padding-top: 0px;
-	}
-	img.teamico64{
-		width: 56px;
-	}
-	.my-h1{
-		text-align: left;
-	}
-	div.players-list div.player-picture img{width: 200px;}
-	div.players-list div.player-info{}
-	div.all-teams-block{height: auto;}
 }
